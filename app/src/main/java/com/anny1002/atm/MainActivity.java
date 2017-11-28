@@ -1,5 +1,6 @@
 package com.anny1002.atm;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,7 +19,8 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if (!logon){
-
+            Intent intent =new Intent(this,LoginActivity.class);
+            startActivity(intent);
         }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

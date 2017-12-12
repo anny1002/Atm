@@ -10,23 +10,41 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private final int REQUEST_LOGIN=102;
+    private final int REQUEST_INFO=105;
     boolean logon = false;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_LOGIN){
-            if (resultCode == RESULT_OK){
-                String userid = data.getStringExtra("LOGIN_USERID");
-                String passwd = data.getStringExtra("LOGIN_PASSWD");
-                Log.d("RESULT",userid + "/" + passwd);
+        switch (requestCode){
+            case REQUEST_LOGIN:
+                if (resultCode == RESULT_OK){
+                    String userid = data.getStringExtra("LOGIN_USERID");
+                    String passwd = data.getStringExtra("LOGIN_PASSWD");
+                    Toast.makeText(this,"Login userid:"+userid,Toast.LENGTH_LONG).show();
+                    Log.d("RESULT",userid + "/" + passwd);
+                    getSharedPreferences("atm",MODE_PRIVATE)
+                            .edit()
+                            .putString("USERID",userid)
+                            .apply();
             }else {
                 finish();
             }
+            break;
+            case REQUEST_INFO:
+                if(resultCode == RESULT_OK){
+                    String name = data.getStringExtra("EXTRA_NAME");
+                    String phone = data.getStringExtra("EXTRA_PHONE");
+                    Toast.makeText(this,"暱稱:"+name,Toast.LENGTH_LONG).show();
+                    Toast.makeText(this,"電話"+phone,Toast.LENGTH_LONG).show();
+                }
+                break;
         }
+
     }
 
     @Override
@@ -40,15 +58,16 @@ public class MainActivity extends AppCompatActivity {
         //    startActivity(intent);
             startActivityForResult(intent,REQUEST_LOGIN);
         }
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+
             }
         });
+
     }
 
     @Override

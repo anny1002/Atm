@@ -16,7 +16,28 @@ public class MainActivity extends AppCompatActivity {
     private final int REQUEST_LOGIN=102;
     private final int REQUEST_INFO=105;
     boolean logon = false;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if (!logon){
+            Intent intent =new Intent(this,LoginActivity.class);
+            //    startActivity(intent);
+            startActivityForResult(intent,REQUEST_LOGIN);
+        }
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent userInfo = new Intent(MainActivity.this,UserInfoActivity.class);
+                startActivityForResult(userInfo,REQUEST_INFO);
 
+            }
+        });
+
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -40,33 +61,10 @@ public class MainActivity extends AppCompatActivity {
                     String name = data.getStringExtra("EXTRA_NAME");
                     String phone = data.getStringExtra("EXTRA_PHONE");
                     Toast.makeText(this,"暱稱:"+name,Toast.LENGTH_LONG).show();
-                    Toast.makeText(this,"電話"+phone,Toast.LENGTH_LONG).show();
+                    Toast.makeText(this,"電話:"+phone,Toast.LENGTH_LONG).show();
                 }
                 break;
         }
-
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        if (!logon){
-            Intent intent =new Intent(this,LoginActivity.class);
-        //    startActivity(intent);
-            startActivityForResult(intent,REQUEST_LOGIN);
-        }
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-
-            }
-        });
 
     }
 

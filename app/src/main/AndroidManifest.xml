@@ -21,7 +21,13 @@
         </activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".UserInfoActivity" />
-        <activity android:name=".CH8Activity"></activity>
+        <activity android:name=".CH8Activity" />
+        <activity
+            android:name=".AddrActivity"
+            android:label="@string/title_activity_addr"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".CityActivity" />
+        <activity android:name=".AreaActivity"></activity>
     </application>
 
 </manifest>

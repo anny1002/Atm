@@ -1,10 +1,12 @@
 package com.anny1002.atm;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -15,7 +17,8 @@ public class UserInfoActivity extends AppCompatActivity {
     private EditText edName;
     private EditText edPhone;
     private Spinner ages;
-    private final String TAG =  100;
+    private final String TAG =  "";
+    private Button b_address;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,7 @@ public class UserInfoActivity extends AppCompatActivity {
         String edphone = getSharedPreferences("info",MODE_PRIVATE).getString("Phone","");
         edName.setText(edname);
         edPhone.setText(edphone);
+
     }
     public void getInfo(View view){
         String name = edName.getText().toString();
@@ -45,5 +49,9 @@ public class UserInfoActivity extends AppCompatActivity {
         getIntent().putExtra("EXTRA_PHONE",phone);
         setResult(RESULT_OK,getIntent());
         finish();
+    }
+    public void address(View view){
+        startActivity(new Intent(this,CityActivity.class));
+
     }
 }
